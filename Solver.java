@@ -111,13 +111,17 @@ public class Trie {
 public class Game {
 
     ArrayList<ArrayList<String>> board;
+    int maxScore;
+    int[] score;
     boolean[][] visited;
     Trie trie;
     
     public Game(ArrayList<ArrayList<String>> b, Trie t) {
         board = b;
         trie = t;
+        maxScore = 0;
         visited = new boolean[4][4];
+        score = new int[]{0, 0, 0, 100, 400, 800, 1400, 1800};
     }
 
     // returns list of words and the associated max score
@@ -128,6 +132,7 @@ public class Game {
                 dfs(i, j, "", words);
             }
         }
+        System.out.println("--- HYPOTHETICAL MAX SCORE: " + maxScore + " ---");
         return words;
     }
 
@@ -153,6 +158,7 @@ public class Game {
             if (build.length() >= 3) {
                 if (trie.search(build)) {
                     words.add(build);
+                    maxScore += score[build.length()];
                 }
             }
         }
