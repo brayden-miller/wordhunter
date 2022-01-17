@@ -18,7 +18,7 @@ public class Solver {
             Scanner s = new Scanner(System.in);
             int row = 1;
             ArrayList<ArrayList<String>> board = new ArrayList<>();
-            Pattern onlyAlphabetical = Pattern.compile("[a-zA-Z]");
+            Pattern onlyAlphabetical = Pattern.compile("[^a-zA-Z]");
             while (row <= 4) {
                 System.out.println("Enter row #" + row + " of board:");
                 boolean valid = false;
@@ -26,8 +26,8 @@ public class Solver {
                     String rowStr = s.nextLine().toLowerCase();
                     if (rowStr.length() != 4) {
                         System.out.println("Invalid input; did not enter 4 characters. Try again:");
-                    } else if (!onlyAlphabetical.matcher(rowStr).find()) {
-                        System.out.println("Invalid input; only enter alphabetical characters.");
+                    } else if (onlyAlphabetical.matcher(rowStr).find()) {
+                        System.out.println("Invalid input; only enter alphabetical characters. Try again:");
                     } 
                     else {
                         valid = true;
@@ -135,7 +135,7 @@ public class Game {
                 dfs(i, j, "", words);
             }
         }
-        System.out.println("--- HYPOTHETICAL MAX SCORE: " + maxScore + " ---");
+        System.out.println("--- MAXIMUM POSSIBLE SCORE: " + maxScore + " ---");
         return words;
     }
 
