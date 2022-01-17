@@ -18,7 +18,7 @@ public class Solver {
             board = b;
             trie = t;
             maxScore = 0;
-            visited = new boolean[4][4];
+            visited = new boolean[BOARD_ROWS][BOARD_COLS];
             score = new int[]{0, 0, 0, 100, 400, 800, 1400, 1800, 2200, 2600, 3000, 3400, 3800, 4200, 4600, 5000, 5400};
         }
 
@@ -136,12 +136,12 @@ public class Solver {
             ArrayList<ArrayList<Character>> board = new ArrayList<>();
             Pattern onlyAlphabetical = Pattern.compile("[^a-zA-Z]");
             while (row <= BOARD_ROWS) {
-                System.out.println("Enter row #" + row + " of board:");
+                System.out.println("Enter row #" + row + " of board (" + BOARD_COLS + " letters, no spaces in between):");
                 boolean valid = false;
                 while (!valid) {
                     String rowStr = s.nextLine().toLowerCase();
                     if (rowStr.length() != BOARD_ROWS) {
-                        System.out.println("Invalid input; did not enter 4 characters. Try again:");
+                        System.out.println("Invalid input; did not enter " + BOARD_COLS + " characters. Try again:");
                     } else if (onlyAlphabetical.matcher(rowStr).find()) {
                         System.out.println("Invalid input; only enter alphabetical characters. Try again:");
                     } 
