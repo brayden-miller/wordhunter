@@ -121,7 +121,7 @@ public class Game {
         trie = t;
         maxScore = 0;
         visited = new boolean[4][4];
-        score = new int[]{0, 0, 0, 100, 400, 800, 1400, 1800};
+        score = new int[]{0, 0, 0, 100, 400, 800, 1400, 1800, 2200, 2600, 3000, 3400, 3800, 4200, 4600, 5000, 5400};
     }
 
     // returns list of words and the associated max score
