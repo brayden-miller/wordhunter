@@ -1,10 +1,11 @@
 import java.util.*;
 import java.io.*;
+import java.util.regex.Pattern;
 
 public class Solver {
     public static void main(String[] args) throws FileNotFoundException {
         try {
-            File file = new File("scrabble.txt");
+            File file = new File("dictionaries/scrabble.txt");
             Scanner fileScan = new Scanner(file);
             int numWords = 0;
             Trie trie = new Trie();
@@ -17,15 +18,20 @@ public class Solver {
             Scanner s = new Scanner(System.in);
             int row = 1;
             ArrayList<ArrayList<String>> board = new ArrayList<>();
+            Pattern onlyAlphabetical = Pattern.compile("[a-zA-Z]");
             while (row <= 4) {
-                System.out.println("Enter row #" + row + " of board separated by spaces:");
+                System.out.println("Enter row #" + row + " of board:");
                 boolean valid = false;
                 while (!valid) {
-                    String[] letters = s.nextLine().split(" ");
-                    if (letters.length != 4) {
+                    String rowStr = s.nextLine().toLowerCase();
+                    if (rowStr.length() != 4) {
                         System.out.println("Invalid input; did not enter 4 characters. Try again:");
-                    } else {
+                    } else if (!onlyAlphabetical.matcher(rowStr).find()) {
+                        System.out.println("Invalid input; only enter alphabetical characters.");
+                    } 
+                    else {
                         valid = true;
+                        String[] letters = new String[]{rowStr.charAt(0) + "", rowStr.charAt(1) + "", rowStr.charAt(2) + "", rowStr.charAt(3) + ""};
                         board.add(new ArrayList<String>(Arrays.asList(letters)));
                     }
                 }    
@@ -154,8 +160,10 @@ public class Game {
             visited[i][j] = false;
             if (build.length() >= 3) {
                 if (trie.search(build)) {
-                    words.add(build);
-                    maxScore += score[build.length()];
+                    if (!words.contains(build)) {
+                        words.add(build);
+                        maxScore += score[build.length()];
+                    }
                 }
             }
         }
