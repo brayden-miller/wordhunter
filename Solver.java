@@ -136,9 +136,13 @@ public class Game {
             }
             visited[i][j] = true;
             dfs(i + 1, j, build, words);
+            dfs(i + 1, j + 1, build, words);
             dfs(i - 1, j, build, words);
+            dfs(i - 1, j - 1, build, words);
             dfs(i, j + 1, build, words);
             dfs(i, j - 1, build, words);
+            dfs(i - 1, j + 1, build, words);
+            dfs(i + 1, j - 1, build, words);
             visited[i][j] = false;
             if (build.length() >= 3) {
                 if (trie.search(build)) {
