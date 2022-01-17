@@ -1,49 +1,55 @@
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.*;
 
 public class Solver {
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("words_alpha.txt");
-        Scanner fileScan = new Scanner(file);
-        int numWords = 0;
-        Trie trie = new Trie();
-        while (fileScan.hasNextLine()) {
-            String word = fileScan.nextLine();
-            numWords++;
-            trie.insert(word);
-        }
-        System.out.println("Number of words in dictionary: " + numWords);
-        Scanner s = new Scanner(System.in);
-        int row = 1;
-        ArrayList<ArrayList<String>> board = new ArrayList<>();
-        while (row <= 4) {
-            System.out.println("Enter row #" + row + " of board separated by spaces:");
-            boolean valid = false;
-            while (!valid) {
-                String[] letters = s.nextLine().split(" ");
-                if (letters.length != 4) {
-                    System.out.println("Invalid input; did not enter 4 characters. Try again:");
-                } else {
-                    valid = true;
-                    board.add(new ArrayList<String>(Arrays.asList(letters)));
-                }
-            }    
-            row++;    
-        }
-        System.out.println("Solving for the following board:");
-        for (ArrayList<String> a : board) {
-            for (String str : a) {
-                System.out.print(str + " ");
+        try {
+            File file = new File("scrabble.txt");
+            Scanner fileScan = new Scanner(file);
+            int numWords = 0;
+            Trie trie = new Trie();
+            while (fileScan.hasNextLine()) {
+                String word = fileScan.nextLine().toLowerCase();
+                numWords++;
+                trie.insert(word);
             }
-            System.out.println();
-        }
-        Game game = new Game(board, trie);
-        ArrayList<String> words = new ArrayList<>(game.solve());
-        System.out.println("--- SOLUTIONS (" + words.size() + ") ---");
-        words.sort((s1, s2) -> s2.length() - s1.length());
-        for (String word : words) {
-            System.out.println(word);
+            System.out.println("Number of words in dictionary: " + numWords);
+            Scanner s = new Scanner(System.in);
+            int row = 1;
+            ArrayList<ArrayList<String>> board = new ArrayList<>();
+            while (row <= 4) {
+                System.out.println("Enter row #" + row + " of board separated by spaces:");
+                boolean valid = false;
+                while (!valid) {
+                    String[] letters = s.nextLine().split(" ");
+                    if (letters.length != 4) {
+                        System.out.println("Invalid input; did not enter 4 characters. Try again:");
+                    } else {
+                        valid = true;
+                        board.add(new ArrayList<String>(Arrays.asList(letters)));
+                    }
+                }    
+                row++;    
+            }
+            System.out.println("Solving for the following board:");
+            for (ArrayList<String> a : board) {
+                for (String str : a) {
+                    System.out.print(str + " ");
+                }
+                System.out.println();
+            }
+            Game game = new Game(board, trie);
+            ArrayList<String> words = new ArrayList<>(game.solve());
+            System.out.println("--- SOLUTIONS (" + words.size() + ") ---");
+            words.sort((s1, s2) -> s2.length() - s1.length());
+            for (String word : words) {
+                System.out.println(word);
+            }
+        } catch (IOException e) {
+            System.out.println("Error with files.");
         }
     }
 }
