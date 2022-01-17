@@ -175,6 +175,8 @@ public class Solver {
             }
         } catch (IOException e) {
             System.out.println("Error with files or I/O.");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
