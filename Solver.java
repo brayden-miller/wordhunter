@@ -10,7 +10,6 @@ public class Solver {
 
         ArrayList<ArrayList<Character>> board;
         int maxScore;
-        int[] score;
         boolean[][] visited;
         Trie trie;
         
@@ -19,7 +18,6 @@ public class Solver {
             trie = t;
             maxScore = 0;
             visited = new boolean[BOARD_ROWS][BOARD_COLS];
-            score = new int[]{0, 0, 0, 100, 400, 800, 1400, 1800, 2200, 2600, 3000, 3400, 3800, 4200, 4600, 5000, 5400};
         }
 
         // returns list of words and the associated max score
@@ -57,7 +55,12 @@ public class Solver {
                     if (trie.search(build)) {
                         if (!words.contains(build)) {
                             words.add(build);
-                            maxScore += score[build.length()];
+                            if (build.length() == 3)
+                                maxScore += 100;
+                            else if (build.length() <= 5)
+                                maxScore += (build.length() - 3) * 400;
+                            else
+                                maxScore += (build.length() - 6) * 400 + 1400;
                         }
                     }
                 }
