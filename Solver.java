@@ -39,8 +39,8 @@ public class Solver {
             System.out.println();
         }
         Game game = new Game(board, trie);
-        System.out.println("--- SOLUTIONS ---");
         ArrayList<String> words = new ArrayList<>(game.solve());
+        System.out.println("--- SOLUTIONS (" + words.size() + ") ---");
         words.sort((s1, s2) -> s2.length() - s1.length());
         for (String word : words) {
             System.out.println(word);
